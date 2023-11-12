@@ -14,5 +14,6 @@ namespace P06Shop.Shared.Configuration
         public SpeechSettings SpeechSettings { get; set; }
         public BaseProductEndpoint BaseProductEndpoint { get; set; }
         public BaseOrderEndpoint BaseOrderEndpoint { get; set; }
+        public string Version { get; set; }
     }
 }
