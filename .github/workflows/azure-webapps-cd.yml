@@ -22,7 +22,7 @@ jobs:
         run: dotnet publish ./P10ShopWebAPPMVC.Client/P10ShopWebAPPMVC.Client.csproj -c Release -o ${{ env.DOTNET_ROOT}}/api
       # - name: Display Version
       #   run: dotnet /home/runner/work/lab5PAMIW/lab5PAMIW/P10ShopWebAPPMVC.Client/bin/Release/net7.0/P10ShopWebAPPMVC.Client.dll
-      - name: upload artifact # zipujemy porjekt
+      - name: upload artifact # zipujemy projekt
         uses: actions/upload-artifact@v3.1.0
         with:
           name: personsApi-artifact
