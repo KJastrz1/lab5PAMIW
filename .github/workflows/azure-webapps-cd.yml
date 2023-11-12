@@ -13,7 +13,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2.1.0
         with:
-          dotnet-version: 6.0.100 # w danej wersji
+          dotnet-version: 7.0.0 # w danej wersji
       - name: Restore dependences # robimy restore
         run: dotnet restore
       - name: Build #potem builda
