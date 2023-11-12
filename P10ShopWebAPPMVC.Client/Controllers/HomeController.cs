@@ -16,11 +16,7 @@ namespace P09ShopWebAPPMVC.Client.Controllers
 
         public IActionResult Index()
         {
-            var version = Assembly.GetEntryAssembly()
-                     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                     .InformationalVersion;
-
-            ViewData["Version"] = version;
+            ViewData["Version"] = typeof(Program).Assembly.GetName().Version?.ToString() ?? "Unknown";
 
             return View();
         }
