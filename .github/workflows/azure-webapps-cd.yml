@@ -15,14 +15,14 @@ jobs:
         with:
           dotnet-version: 7.0.100 # w danej wersji
           
-      - name: Install GitVersion
-        run: dotnet tool install -g GitVersion.Tool --version 5.7.2
+      # - name: Install GitVersion
+      #   run: dotnet tool install -g GitVersion.Tool --version 5.7.2
      
     
-      - name: Update AppSettings Version
-        run: |
-          version=$(dotnet gitversion /showvariable SemVer)
-          sed -i "s/\"Version\": \".*\"/\"Version\": \"$version\"/" appsettings.json
+      # - name: Update AppSettings Version
+      #   run: |
+      #     version=$(dotnet gitversion /showvariable SemVer)
+      #     sed -i "s/\"Version\": \".*\"/\"Version\": \"$version\"/" appsettings.json
 
           
       - name: Restore dependences # robimy restore
