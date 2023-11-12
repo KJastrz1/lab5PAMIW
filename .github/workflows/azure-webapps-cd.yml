@@ -16,13 +16,13 @@ jobs:
           dotnet-version: 7.0.100 # w danej wersji
           
       - name: Copy GitVersion.yml
-        run: cp GitVersion.yml ${{ env.GITHUB_WORKSPACE }}
+        run: cp $GITHUB_WORKSPACE/GitVersion.yml .
     
       - name: Update AppSettings Version
         run: |
           version=$(dotnet gitversion /showvariable SemVer)
-          jq --arg version "$version" '.Version = $version' appsettings.json > appsettings.new.json
-          mv appsettings.new.json appsettings.json
+          sed -i "s/\"Version\": \".*\"/\"Version\": \"$version\"/" appsettings.json
+
           
       - name: Restore dependences # robimy restore
         run: dotnet restore
