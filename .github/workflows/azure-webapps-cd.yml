@@ -1,0 +1,65 @@
+name: CD_deploy_super_app
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3 # przygotowujemy środowisku
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2.1.0
+        with:
+          dotnet-version: 7.0.100 # w danej wersji
+      - name: Restore dependences # robimy restore
+        run: dotnet restore
+      - name: Build #potem builda
+        run: dotnet build --no-restore
+      - name: Publish
+        run: dotnet publish ./P10ShopWebAPPMVC.Client/P10ShopWebAPPMVC.Client.csproj -c Release -o ${{ env.DOTNET_ROOT}}/api
+      - name: Display Version
+        run: dotnet ./P10ShopWebAPPMVC.Client/out/P10ShopWebAPPMVC.Client.dll
+      - name: upload artifact # zipujemy porjekt
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: personsApi-artifact
+          path: ${{ env.DOTNET_ROOT}}/api         ﻿
+
+  deploy-dev: # kolejny job
+    runs-on: ubuntu-latest
+    needs: build # nie bedzie wykonywany asynchronicznie 
+    environment:
+      name: 'Dev' 
+      url: ${{ steps.deploy-to-azure.outputs.webapp-url}} #okreslamy url aplikacji (Azure WebApp) 
+    steps:  
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.0 
+        with:
+          name: personsApi-artifact
+      - name: Azure WebApp #uploadujemy do Azure
+        id: deploy-to-azure
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: 'lab4mwo-dev' # nazwa aplikacji w azure
+          publish-profile: ${{ secrets.PUBLISH_PROFILE_DEV }} #uzywamy secrets przchowujący profil publikacji
+  
+  deploy-prod: # kolejny job dla sorodiwska produkcyjnego  
+     runs-on: ubuntu-latest
+     needs: deploy-dev # wymagamy najpiew deploy na dev 
+     environment:
+      name: 'Prod' # okreslanmy jak sie nazywa środowisko
+      url: ${{ steps.deploy-to-azure.outputs.webapp-url}} #okreslamy url aplikacji (Azure WebApp) 
+     steps:
+      - name: Download a Build Artifact #pobieramy zipa
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: personsApi-artifact
+      - name: Azure WebApp #uploadujemy do Azure
+        id: deploy-to-azure
+        uses: Azure/webapps-deploy@v2
+        with: 
+          app-name: 'lab4mwo-prod' # nazwa aplikacji w azure
+          publish-profile: ${{ secrets. PUBLISH_PROFILE_PROD }} #uzywamy secrets przchowujący profil publikacji
