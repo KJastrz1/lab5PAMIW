@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using P09ShopWebAPPMVC.Client.Models;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace P09ShopWebAPPMVC.Client.Controllers
 {
@@ -15,6 +16,12 @@ namespace P09ShopWebAPPMVC.Client.Controllers
 
         public IActionResult Index()
         {
+            var version = Assembly.GetEntryAssembly()
+                     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                     .InformationalVersion;
+
+            ViewData["Version"] = version;
+
             return View();
         }
 
