@@ -28,10 +28,6 @@ namespace P09ShopWebAPPMVC.Client.Controllers
             return Orders != null
                 ? View(Orders.Data.AsEnumerable())
                 : Problem("Entity set 'ShopContext.Orders'  is null.");
-
-            //return Orders != null ?
-            //              View("~/Views/Orders/Index.cshtml", Orders.Data.AsEnumerable()) :
-            //              Problem("Entity set 'ShopContext.Orders'  is null.");
         }
 
         // GET: Orders/Details/5
@@ -57,9 +53,6 @@ namespace P09ShopWebAPPMVC.Client.Controllers
             return View();
         }
 
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TotalPrice,Date")] Order Order)
@@ -89,8 +82,6 @@ namespace P09ShopWebAPPMVC.Client.Controllers
         }
 
         // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,Date")] Order Order)

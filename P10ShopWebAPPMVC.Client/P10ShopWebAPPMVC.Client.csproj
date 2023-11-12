@@ -22,4 +22,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\P06Shop.Shared\P06Shop.Shared.csproj" />
 	</ItemGroup>
+	<PropertyGroup>
+		<VersionPrefix>1.0.0</VersionPrefix>
+	</PropertyGroup>
+
 </Project>
