@@ -14,6 +14,16 @@ jobs:
         uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: 7.0.100 # w danej wersji
+          
+      - name: Copy GitVersion.yml
+        run: cp GitVersion.yml ${{ env.GITHUB_WORKSPACE }}
+    
+      - name: Update AppSettings Version
+        run: |
+          version=$(dotnet gitversion /showvariable SemVer)
+          jq --arg version "$version" '.Version = $version' appsettings.json > appsettings.new.json
+          mv appsettings.new.json appsettings.json
+          
       - name: Restore dependences # robimy restore
         run: dotnet restore
       - name: Build #potem builda
