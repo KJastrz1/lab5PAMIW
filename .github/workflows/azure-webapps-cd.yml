@@ -43,7 +43,7 @@ jobs:
         id: deploy-to-azure
         uses: Azure/webapps-deploy@v2
         with:
-          app-name: 'lab4mwo-dev' # nazwa aplikacji w azure
+          app-name: 'lab4mwo' # nazwa aplikacji w azure
           publish-profile: ${{ secrets.PUBLISH_PROFILE_DEV }} #uzywamy secrets przchowujący profil publikacji
   
   deploy-prod: # kolejny job dla sorodiwska produkcyjnego  
@@ -61,5 +61,5 @@ jobs:
         id: deploy-to-azure
         uses: Azure/webapps-deploy@v2
         with: 
-          app-name: 'lab4mwo-prod' # nazwa aplikacji w azure
+          app-name: 'lab4mwoprod' # nazwa aplikacji w azure
           publish-profile: ${{ secrets. PUBLISH_PROFILE_PROD }} #uzywamy secrets przchowujący profil publikacji
