@@ -13,17 +13,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2.1.0
         with:
-          dotnet-version: 7.0.100 # w danej wersji
-          
-      # - name: Install GitVersion
-      #   run: dotnet tool install -g GitVersion.Tool --version 5.7.2
-     
-    
-      # - name: Update AppSettings Version
-      #   run: |
-      #     version=$(dotnet gitversion /showvariable SemVer)
-      #     sed -i "s/\"Version\": \".*\"/\"Version\": \"$version\"/" appsettings.json
-
+          dotnet-version: 7.0.100 # w danej wersji         
           
       - name: Restore dependences # robimy restore
         run: dotnet restore
@@ -31,8 +21,7 @@ jobs:
         run: dotnet build --no-restore
       - name: Publish
         run: dotnet publish ./P10ShopWebAPPMVC.Client/P10ShopWebAPPMVC.Client.csproj -c Release -o ${{ env.DOTNET_ROOT}}/api
-      # - name: Display Version
-      #   run: dotnet /home/runner/work/lab5PAMIW/lab5PAMIW/P10ShopWebAPPMVC.Client/bin/Release/net7.0/P10ShopWebAPPMVC.Client.dll
+     
       - name: upload artifact # zipujemy projekt
         uses: actions/upload-artifact@v3.1.0
         with:
