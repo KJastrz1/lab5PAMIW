@@ -4,7 +4,7 @@ using P06Shop.Shared.Configuration;
 using P06Shop.Shared.Services.ProductService;
 using P06Shop.Shared.Services.OrderService;
 
-using System.Configuration;
+using System.Configuratio;
 
 var builder = WebApplication.CreateBuilder(args);
 
